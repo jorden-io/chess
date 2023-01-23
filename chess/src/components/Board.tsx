@@ -48,26 +48,26 @@ const Board: FC<Props> = ({ matrix }) => {
                     style={{
                       cursor: "-webkit-grab",
                       border: r.val
-                        ? "solid 2px rgb(25, 25, 25)"
+                        ? "solid 2px rgb(28, 28, 28)"
                         : "solid 2px rgb(185, 185, 185)",
                       color:
                         r.pieceName === "x"
                           ? r.val % 2 != 0
-                            ? "rgb(25, 25, 25)"
+                            ? "rgb(28, 28, 28)"
                             : "rgb(185, 185, 185)"
                           : r.white
                           ? "white"
                           : "black",
                       backgroundColor:
-                        r.val === 1 ? "rgb(25, 25, 25)" : "rgb(185, 185, 185)",
+                        r.val === 1 ? "rgb(28, 28, 28)" : "rgb(185, 185, 185)",
                       padding: "20px",
                       margin: "0px",
                     }}
                   >
                     <img
                       style={{
-                        width: "35px",
-                        height: "35px",
+                        width: "40px",
+                        height: "40px",
                         border: "none",
                         visibility: r?.src ? "visible" : "hidden",
                       }}

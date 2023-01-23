@@ -97,6 +97,9 @@ class Piece {
       switch (piece.pieceName) {
         case "P":
           if (ypos === 7) {
+            if (xpos === 7) {
+              break;
+            }
             if (
               matrix.container[ypos - 1][xpos + 1].pieceName != "x" &&
               !matrix.container[ypos - 1][xpos + 1].white &&
@@ -106,13 +109,18 @@ class Piece {
                 `p-${ypos - 1}-${xpos + 1}`
               )!.style.border = "solid 2px green";
             }
-            document.getElementById(`p-${ypos}-${xpos + 1}`)!.style.border =
-              "solid 2px green";
-            document.getElementById(`p-${ypos}-${xpos + 2}`)!.style.border =
-              "solid 2px green";
+            if (matrix.container[ypos - 1][xpos + 1].pieceName === "x") {
+              document.getElementById(`p-${ypos}-${xpos + 1}`)!.style.border =
+                "solid 2px green";
+              document.getElementById(`p-${ypos}-${xpos + 2}`)!.style.border =
+                "solid 2px green";
+            }
             break;
           }
           if (ypos === 0) {
+            if (xpos === 7) {
+              break;
+            }
             if (
               matrix.container[ypos + 1][xpos + 1].pieceName != "x" &&
               !matrix.container[ypos + 1][xpos + 1].white &&
@@ -122,10 +130,15 @@ class Piece {
                 `p-${ypos + 1}-${xpos + 1}`
               )!.style.border = "solid 2px green";
             }
-            document.getElementById(`p-${ypos}-${xpos + 1}`)!.style.border =
-              "solid 2px green";
-            document.getElementById(`p-${ypos}-${xpos + 2}`)!.style.border =
-              "solid 2px green";
+            if (matrix.container[ypos][xpos + 1].pieceName === "x") {
+              document.getElementById(`p-${ypos}-${xpos + 1}`)!.style.border =
+                "solid 2px green";
+              document.getElementById(`p-${ypos}-${xpos + 2}`)!.style.border =
+                "solid 2px green";
+            }
+            break;
+          }
+          if (xpos === 7) {
             break;
           }
           if (matrix.container[ypos][xpos + 1].pieceName === "x") {
@@ -160,136 +173,218 @@ class Piece {
           let ry: number = 1;
           let rx: number = 1;
           if (xpos != 7) {
-            while (
-              matrix.container[ypos][xpos + ry].pieceName === "x" ||
-              !matrix.container[ypos][xpos + ry].white
-            ) {
+            while (xpos <= 7) {
+              if (
+                !matrix.container[ypos][xpos + ry] ||
+                matrix.container[ypos][xpos + ry].white
+              ) {
+                break;
+              }
+
               if (
                 matrix.container[ypos][xpos + ry].pieceName != "x" &&
-                !matrix.container[ypos][xpos + ry].white &&
-                matrix.container[ypos][xpos + ry].pieceName != ""
+                !matrix.container[ypos][xpos + ry].white
               ) {
                 document.getElementById(
                   `p-${ypos}-${xpos + ry}`
                 )!.style.border = "solid 2px green";
                 break;
               }
-              if (matrix.container[ypos][xpos + ry].pieceName == "x") {
-                document.getElementById(
-                  `p-${ypos}-${xpos + ry}`
-                )!.style.border = "solid 2px green";
-              }
-              if (
-                matrix.container[ypos][xpos + ry + 1].pieceName != "x" &&
-                !matrix.container[ypos][xpos + ry + 1].white
-                //matrix.container[ypos][xpos + ry + 1].pieceName != ""
-              ) {
-                document.getElementById(
-                  `p-${ypos}-${xpos + ry + 1}`
-                )!.style.border = "solid 2px green";
-              }
-              if (!(matrix.container[ypos][xpos + ry].pieceName === "x")) {
-              }
+              document.getElementById(`p-${ypos}-${xpos + ry}`)!.style.border =
+                "solid 2px green";
               ry++;
             }
           }
           ry = 1;
           if (xpos > 0) {
-            while (
-                matrix.container[ypos][xpos - ry].pieceName != "x" &&
-                !matrix.container[ypos][xpos - ry].white 
-                //matrix.container[ypos][xpos - ry].pieceName != ""
-            ) {
+            while (xpos > 0) {
+              if (
+                !matrix.container[ypos][xpos - ry] ||
+                matrix.container[ypos][xpos - ry].white
+              ) {
+                break;
+              }
+
               if (
                 matrix.container[ypos][xpos - ry].pieceName != "x" &&
-                !matrix.container[ypos][xpos - ry].white &&
-                matrix.container[ypos][xpos - ry].pieceName != ""
+                !matrix.container[ypos][xpos - ry].white
               ) {
                 document.getElementById(
                   `p-${ypos}-${xpos - ry}`
                 )!.style.border = "solid 2px green";
                 break;
               }
-              if (matrix.container[ypos][xpos - ry].pieceName == "x") {
-                document.getElementById(
-                  `p-${ypos}-${xpos - ry}`
-                )!.style.border = "solid 2px green";
+
+              if (ry - xpos == 1) {
+                break;
               }
-              if (
-                matrix.container[ypos][xpos - ry - 1].pieceName != "x" &&
-                !matrix.container[ypos][xpos - ry - 1].white &&
-                matrix.container[ypos][xpos + ry + 1].pieceName != ""
-              ) {
-                document.getElementById(
-                  `p-${ypos}-${xpos - ry - 1}`
-                )!.style.border = "solid 2px green";
-              }
-              if (!(matrix.container[ypos][xpos + ry].pieceName === "x")) {
-              }
+              document.getElementById(`p-${ypos}-${xpos - ry}`)!.style.border =
+                "solid 2px green";
               ry++;
             }
           }
-          //   while (
-          //     //matrix.container[ypos + rx][xpos].pieceName === "x" &&
-          //     !matrix.container[ypos + rx][xpos].white &&
-          //     matrix.container[ypos + rx][xpos].pieceName != ""
-          //   ) {
-          //     if (
-          //       //matrix.container[ypos + rx][xpos].pieceName === "x" &&
-          //       !matrix.container[ypos + rx][xpos].white &&
-          //       matrix.container[ypos + rx][xpos].pieceName != ""
-          //     ) {
-          //       document.getElementById(`p-${ypos}-${xpos + ry}`)!.style.border =
-          //         "solid 2px green";
-          //     }
-          //     // if (!(matrix.container[ypos + rx][xpos].pieceName === "x")) {
-          //     //   break;
-          //     // }
-          //     rx++;
-          //   }
+          if (ypos >= 0) {
+            while (ypos <= 7) {
+              if (rx + ypos > 7) {
+                break;
+              }
+
+              if (
+                matrix.container[ypos + rx][xpos].pieceName != "x" &&
+                !matrix.container[ypos + rx][xpos].white
+              ) {
+                document.getElementById(
+                  `p-${ypos + rx}-${xpos}`
+                )!.style.border = "solid 2px green";
+                break;
+              }
+
+              if (
+                !matrix.container[ypos + rx][xpos] ||
+                matrix.container[ypos + rx][xpos].white ||
+                matrix.container[ypos + rx][xpos].pieceName != "x"
+              ) {
+                break;
+              }
+
+              document.getElementById(`p-${ypos + rx}-${xpos}`)!.style.border =
+                "solid 2px green";
+              rx++;
+            }
+          }
+          rx = 1;
+          if (ypos <= 7) {
+            while (ypos > 0) {
+              if (rx - ypos === 1) {
+                break;
+              }
+
+              if (
+                matrix.container[ypos - rx][xpos].pieceName != "x" &&
+                !matrix.container[ypos - rx][xpos].white
+              ) {
+                document.getElementById(
+                  `p-${ypos - rx}-${xpos}`
+                )!.style.border = "solid 2px green";
+                break;
+              }
+
+              if (
+                !matrix.container[ypos - rx][xpos] ||
+                matrix.container[ypos - rx][xpos].white ||
+                matrix.container[ypos - rx][xpos].pieceName != "x"
+              ) {
+                break;
+              }
+              document.getElementById(`p-${ypos - rx}-${xpos}`)!.style.border =
+                "solid 2px green";
+              rx++;
+            }
+          }
+
           break;
         case "k":
-          if (matrix.container[ypos + 1][xpos + 2]) {
-            if (
-              matrix.container[ypos + 1][xpos + 2] ||
-              !matrix.container[ypos + 1][xpos + 2].white
-            ) {
-              document.getElementById(
-                `p-${ypos + 1}-${xpos + 2}`
-              )!.style.border = "solid 2px green";
+          if (ypos <= 6) {
+            if (matrix.container[ypos + 1][xpos + 2]) {
+              if (
+                matrix.container[ypos + 1][xpos + 2] &&
+                !matrix.container[ypos + 1][xpos + 2].white
+              ) {
+                document.getElementById(
+                  `p-${ypos + 1}-${xpos + 2}`
+                )!.style.border = "solid 2px green";
+              }
             }
           }
-          if (matrix.container[ypos - 1][xpos + 2]) {
-            if (
-              matrix.container[ypos - 1][xpos + 2] &&
-              !matrix.container[ypos - 1][xpos + 2].white
-            ) {
-              document.getElementById(
-                `p-${ypos - 1}-${xpos + 2}`
-              )!.style.border = "solid 2px green";
+
+          if (ypos < 6) {
+            if (matrix.container[ypos + 2][xpos + 1]) {
+              if (
+                matrix.container[ypos + 2][xpos + 1] &&
+                !matrix.container[ypos + 2][xpos + 1].white
+              ) {
+                document.getElementById(
+                  `p-${ypos + 2}-${xpos + 1}`
+                )!.style.border = "solid 2px green";
+              }
             }
           }
-          if (matrix.container[ypos - 1][xpos - 2]) {
-            if (
-              matrix.container[ypos - 1][xpos - 2] &&
-              !matrix.container[ypos - 1][xpos - 2].white
-            ) {
-              document.getElementById(
-                `p-${ypos - 1}-${xpos - 2}`
-              )!.style.border = "solid 2px green";
+          if (ypos > 0) {
+            if (matrix.container[ypos - 1][xpos + 2]) {
+              if (
+                matrix.container[ypos - 1][xpos + 2] &&
+                !matrix.container[ypos - 1][xpos + 2].white
+              ) {
+                document.getElementById(
+                  `p-${ypos - 1}-${xpos + 2}`
+                )!.style.border = "solid 2px green";
+              }
             }
           }
-          if (matrix.container[ypos + 1][xpos - 2]) {
-            if (
-              matrix.container[ypos + 1][xpos - 2] &&
-              !matrix.container[ypos + 1][xpos - 2].white
-            ) {
-              document.getElementById(
-                `p-${ypos + 1}-${xpos - 2}`
-              )!.style.border = "solid 2px green";
-              break;
+
+          if (ypos > 2) {
+            if (matrix.container[ypos - 2][xpos + 1]) {
+              if (
+                matrix.container[ypos - 2][xpos + 1] &&
+                !matrix.container[ypos - 2][xpos + 1].white
+              ) {
+                document.getElementById(
+                  `p-${ypos - 2}-${xpos + 1}`
+                )!.style.border = "solid 2px green";
+              }
             }
           }
+
+          if (ypos > 0) {
+            if (matrix.container[ypos - 1][xpos - 2]) {
+              if (
+                matrix.container[ypos - 1][xpos - 2] &&
+                !matrix.container[ypos - 1][xpos - 2].white
+              ) {
+                document.getElementById(
+                  `p-${ypos - 1}-${xpos - 2}`
+                )!.style.border = "solid 2px green";
+              }
+            }
+          }
+          if (ypos > 2) {
+            if (matrix.container[ypos - 2][xpos - 1]) {
+              if (
+                matrix.container[ypos - 2][xpos - 1] &&
+                !matrix.container[ypos - 2][xpos - 1].white
+              ) {
+                document.getElementById(
+                  `p-${ypos - 2}-${xpos - 1}`
+                )!.style.border = "solid 2px green";
+              }
+            }
+          }
+          if (ypos < 6) {
+            if (matrix.container[ypos + 1][xpos - 2]) {
+              if (
+                matrix.container[ypos + 1][xpos - 2] &&
+                !matrix.container[ypos + 1][xpos - 2].white
+              ) {
+                document.getElementById(
+                  `p-${ypos + 1}-${xpos - 2}`
+                )!.style.border = "solid 2px green";
+              }
+            }
+          }
+
+          if (ypos < 6) {
+            if (matrix.container[ypos + 2][xpos - 1]) {
+              if (
+                matrix.container[ypos + 2][xpos - 1] &&
+                !matrix.container[ypos + 2][xpos - 1].white
+              ) {
+                document.getElementById(
+                  `p-${ypos + 2}-${xpos - 1}`
+                )!.style.border = "solid 2px green";
+              }
+            }
+          }
+
           break;
         case "B":
           let by: number = 1;
