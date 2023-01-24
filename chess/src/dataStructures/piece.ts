@@ -389,20 +389,119 @@ class Piece {
         case "B":
           let by: number = 1;
           let bx: number = 1;
-          document.getElementById(`p-${ypos + by}-${xpos + by}`)!.style.border =
-            "solid 2px green";
-          while (
-            matrix.container[ypos + by][xpos + bx].pieceName === "x" &&
-            !matrix.container[ypos + by][xpos + bx].white
-          ) {
-            if (matrix.container[ypos + by][xpos + bx].pieceName === "x") {
+          if (xpos != 7) {
+            while (ypos + by <= 7) {
+              if (
+                !matrix.container[ypos + by][xpos + by] ||
+                matrix.container[ypos + by][xpos + by].white
+              ) {
+                break;
+              }
+
+              if (
+                matrix.container[ypos + by][xpos + by].pieceName != "x" &&
+                !matrix.container[ypos + by][xpos + by].white
+              ) {
+                document.getElementById(
+                  `p-${ypos + by}-${xpos + by}`
+                )!.style.border = "solid 2px green";
+                break;
+              }
+              document.getElementById(
+                `p-${ypos + by}-${xpos + by}`
+              )!.style.border = "solid 2px green";
+              by++;
             }
-            if (matrix.container[ypos + by][xpos + xpos].pieceName != "x") {
-              break;
-            }
-            by++;
-            bx++;
           }
+          by = 1;
+          if (xpos > 0) {
+            while (ypos - by >= 0) {
+              if (
+                !matrix.container[ypos - by][xpos - by] ||
+                matrix.container[ypos - by][xpos - by].white
+              ) {
+                break;
+              }
+
+              if (
+                matrix.container[ypos - by][xpos - by].pieceName != "x" &&
+                !matrix.container[ypos - by][xpos - by].white
+              ) {
+                document.getElementById(
+                  `p-${ypos - by}-${xpos - by}`
+                )!.style.border = "solid 2px green";
+                break;
+              }
+              document.getElementById(
+                `p-${ypos - by}-${xpos - by}`
+              )!.style.border = "solid 2px green";
+              by++;
+            }
+          }
+
+          bx = 1;
+          if (xpos > 0 && xpos <= 7) {
+            while (
+              bx + ypos <=
+              7
+              // matrix.container[ypos + bx][xpos - bx].pieceName === "x" &&
+              // !matrix.container[ypos + bx][xpos - bx].white &&
+              // matrix.container[ypos + bx][xpos - bx].pieceName != ""
+            ) {
+              if (
+                matrix.container[ypos + bx][xpos - bx].pieceName != "x" &&
+                !matrix.container[ypos + bx][xpos - bx].white
+              ) {
+                document.getElementById(
+                  `p-${ypos + bx}-${xpos - bx}`
+                )!.style.border = "solid 2px green";
+                break;
+              }
+
+              if (
+                !matrix.container[ypos + bx][xpos - bx] ||
+                matrix.container[ypos + bx][xpos - bx].white ||
+                matrix.container[ypos + bx][xpos - bx].pieceName != "x"
+              ) {
+                break;
+              }
+              document.getElementById(
+                `p-${ypos + bx}-${xpos - bx}`
+              )!.style.border = "solid 2px green";
+              bx++;
+            }
+          }
+
+          bx = 1;
+          if (ypos > 0 && xpos != 7 && ypos <= 7) {
+            while (true) {
+              if (!matrix.container[ypos - bx][xpos + bx]) {
+                break;
+              }
+              //if (xpos + bx <= 7)
+              if (
+                matrix.container[ypos - bx][xpos + bx].pieceName != "x" &&
+                !matrix.container[ypos - bx][xpos + bx].white
+              ) {
+                document.getElementById(
+                  `p-${ypos - bx}-${xpos + bx}`
+                )!.style.border = "solid 2px green";
+                break;
+              }
+              if (
+                !matrix.container[ypos - bx][xpos + bx] ||
+                matrix.container[ypos - bx][xpos + bx].white ||
+                matrix.container[ypos - bx][xpos + bx].pieceName != "x"
+              ) {
+                break;
+              }
+              document.getElementById(
+                `p-${ypos - bx}-${xpos + bx}`
+              )!.style.border = "solid 2px green";
+              bx++;
+            }
+          }
+
           break;
         case "Q":
           console.log(ypos, xpos, piece.pieceName);
